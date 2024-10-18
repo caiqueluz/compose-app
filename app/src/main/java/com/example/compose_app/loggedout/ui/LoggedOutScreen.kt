@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.compose_app.loggedout.logic.LoggedOutUiState
@@ -49,6 +50,7 @@ fun LoggedOutScreen(
         )
 
         InputSection(
+            visualTransformation = SecurePasswordVisualTransformation,
             labelText = "Password",
             currentText = uiState.passwordCurrentText,
             onValueChanged = onPasswordValueChanged,
@@ -72,6 +74,7 @@ fun LoggedOutScreen(
 @Composable
 private fun InputSection(
     modifier: Modifier = Modifier,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
     labelText: String,
     currentText: String,
     onValueChanged: (String) -> Unit,
@@ -96,7 +99,8 @@ private fun InputSection(
                 Text(
                     text = "Write your $labelText here.",
                 )
-            }
+            },
+            visualTransformation = visualTransformation,
         )
     }
 }
