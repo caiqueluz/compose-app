@@ -13,12 +13,16 @@ import com.example.compose_app.loggedout.logic.LoggedOutViewModel
 @Composable
 fun LoggedOutHost(
     modifier: Modifier = Modifier,
+    username: String,
+    password: String,
     navigateToLoggedInScreen: (username: String, password: String) -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
 
     val viewModel = remember {
         LoggedOutViewModel(
+            username = username,
+            password = password,
             coroutineScope = coroutineScope,
         )
     }

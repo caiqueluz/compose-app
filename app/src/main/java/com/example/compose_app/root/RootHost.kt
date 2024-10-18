@@ -19,14 +19,20 @@ fun RootHost(
         mutableStateOf(LoggedOut)
     }
 
+    var currentUsername by remember {
+        mutableStateOf("")
+    }
+
+    var currentPassword by remember {
+        mutableStateOf("")
+    }
+
     when (currentScreen) {
         is LoggedIn -> {
-            val (username, password) = currentScreen as LoggedIn
-
             LoggedInHost(
                 modifier = modifier,
-                username = username,
-                password = password,
+                username = currentUsername,
+                password = currentPassword,
                 navigateBack = {
                     currentScreen = LoggedOut
                 }
@@ -36,12 +42,13 @@ fun RootHost(
         is LoggedOut -> {
             LoggedOutHost(
                 modifier = modifier,
+                username = currentUsername,
+                password = currentPassword,
                 navigateToLoggedInScreen = { username, password ->
-                    currentScreen =
-                        LoggedIn(
-                            username = username,
-                            password = password,
-                        )
+                    currentUsername = username
+                    currentPassword = password
+
+                    currentScreen = LoggedIn
                 }
             )
         }

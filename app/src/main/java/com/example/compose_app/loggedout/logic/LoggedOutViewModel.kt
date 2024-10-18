@@ -10,6 +10,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class LoggedOutViewModel(
+    private var username: String,
+    private var password: String,
     private val coroutineScope: CoroutineScope,
 ) {
     private val mutableUiState = MutableStateFlow(value = LoggedOutUiState.INITIAL)
@@ -18,8 +20,9 @@ class LoggedOutViewModel(
     private val mutableUiEffect = MutableSharedFlow<LoggedOutEffect>()
     val uiEffect = mutableUiEffect.asSharedFlow()
 
-    private var username = ""
-    private var password = ""
+    init {
+        updateUiState()
+    }
 
     fun onUsernameValueChanged(newValue: String) {
         username = newValue
